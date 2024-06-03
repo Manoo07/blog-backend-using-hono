@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { decode, sign, verify } from "hono/jwt";
-import { z } from "zod";
+import { CreateBlogInput,UpdateBlogInput } from "@heisen_berg79/medium-common";
 
 export const blogRouter = new Hono<{
   Bindings: {
@@ -48,6 +48,13 @@ blogRouter.post("/", async (c: any) => {
 
     const authorId = await c.get("userId");
     const body = await c.req.json();
+    // const success = CreateBlogInput.safeParse(body);
+    // if(!success){
+    //   return c.json({
+    //     success:false,
+    //     message:"Invalid inputs are sent"
+    //   })
+    // }
     const blog = await prisma.post.create({
       data: {
         authorId: authorId,
@@ -80,6 +87,13 @@ blogRouter.put("/:blogId", async (c: any) => {
 
     const blogId = await c.req.param("blogId");
     const body = await c.req.json();
+    const success = UpdateBlogInput.safeParse(body);
+    if(!success){
+      return c.json({
+        success:false,
+        message:"Invalid inputs are sent"
+      })
+    }
     const blog = await prisma.post.update({
       where: {
         id: blogId,
@@ -113,6 +127,14 @@ blogRouter.get("/bulk", async (c: any) => {
     }).$extends(withAccelerate());
 
     const blogs = await prisma.post.findMany({
+      include:{
+        author:{
+          select:{
+            firstName:true,
+            lastName:true
+          }
+        }
+      },
       orderBy: [
         {
           updatedAt: "desc",
@@ -143,6 +165,14 @@ blogRouter.get("/:id", async (c: any) => {
   const blog = await prisma.post.findUnique({
     where: {
       id: id,
+    },
+    include: {
+      author: {
+        select: {
+          firstName: true,
+          lastName: true,
+        },
+      },
     },
   });
 
