@@ -74,14 +74,14 @@ userRouter.post("/signin", async (c: any) => {
     }).$extends(withAccelerate());
 
     const body = await c.req.json();
-    const {success} = signInInput.safeParse(body);
-    if(!success){
-      c.status(411);
-      return c.json({
-        success:false,
-        message: "Incorrect not correct "
-      })
-    }
+    // const {success} = signInInput.safeParse(body);
+    // if(!success){
+    //   c.status(411);
+    //   return c.json({
+    //     success:false,
+    //     message: "Incorrect not correct "
+    //   })
+    // }
     const user = await prisma.user.findUnique({
       where: {
         email: body.email,

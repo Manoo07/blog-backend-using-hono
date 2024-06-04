@@ -1,24 +1,23 @@
-import React from 'react'
 import {Avatar} from './Avatar'
 import {formatDate} from '../utils/formatDate'
 import {Link} from "react-router-dom"
 
-interface BlogCardProps{
+export interface BlogCardProps{
     authorName:string,
     title:string,
     content:string,
-    publisedDate:string,
+    publishedDate:string,
     id:string
 }
 
-export const BlogCard = ({authorName,title,content,publisedDate,id}:BlogCardProps) => {
+export const BlogCard = ({authorName,title,content,publishedDate,id}:BlogCardProps) => {
     console.log(id)
   return (
     <Link to={`/blog/${id}`}>
         <div className="border border-slate-200 pb-4 p-5 mt-4 w-screen max-w-screen-md cursor-pointer">
             <div className="flex align-baseline">
                 <div className="flex justify-center flex-col">
-                    <Avatar authorName={authorName}/> 
+                    <Avatar size="small" authorName={authorName}/> 
                 </div>
                 <div className="flex justify-center flex-col text-lg font-extralight pl-2">
                     {authorName}
@@ -27,7 +26,7 @@ export const BlogCard = ({authorName,title,content,publisedDate,id}:BlogCardProp
                     <Circle/>
                 </div> 
                 <div className="flex justify-center flex-col pl-1 font-extralight text-sm text-slate-500">
-                    {formatDate(publisedDate)}
+                    {formatDate(publishedDate)}
                 </div>
             </div>
             <div className="text-3xl font-semibold pt-2">

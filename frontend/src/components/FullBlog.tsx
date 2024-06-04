@@ -1,7 +1,5 @@
-import React from 'react'
 import { Appbar } from './Appbar'
 import {formatDate} from '../utils/formatDate'
-import { Circle } from './BlogCard';
 import { Avatar } from './Avatar';
 
 
@@ -10,7 +8,7 @@ interface Blog{
     "firstName":string;
     "lastName":string;
   };
-  "createdAt":string;
+  "updatedAt":string;
   "title":string;
   "content":string;
 }
@@ -26,7 +24,7 @@ export const FullBlog = ({blog}:{blog:Blog}) => {
                     {blog.title}
                   </div>
                   <div className="text-slate-500 pt-4">
-                    Posted on {formatDate(blog.createdAt)}
+                    Posted on {formatDate(blog.updatedAt)}
                   </div>
                   <div className="py-4" >
                     {blog.content}

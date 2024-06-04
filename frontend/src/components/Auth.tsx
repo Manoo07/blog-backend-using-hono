@@ -1,4 +1,3 @@
-import { ChangeEventHandler } from "react"
 import { Link,useNavigate} from "react-router-dom"
 import {SignUpInput} from "@heisen_berg79/medium-common"
 import { useState } from "react"

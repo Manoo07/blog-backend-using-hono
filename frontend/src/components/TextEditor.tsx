@@ -1,11 +1,8 @@
-import React from "react";
 import {Link} from "react-router-dom"
-import axios from "axios";
-import { BACKEND_URL } from "../config";
-import { useNavigate } from "react-router-dom";
+
 
 export const TextEditor = ({onChange}:{onChange:(e:any)=>void}) => {
-    const navigate = useNavigate()
+    
   return (
     <div className="">
       <form>
@@ -13,7 +10,7 @@ export const TextEditor = ({onChange}:{onChange:(e:any)=>void}) => {
         onChange = {onChange}
           placeholder="Write an article ..."
           className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500"
-          rows="4"
+          rows={4}
         ></textarea>
         
       </form>
